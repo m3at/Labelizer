@@ -13,7 +13,7 @@ pip install textblob
 pip install textblob-aptagger
 pip install keras
 ```
-
+ 
 If you encounter `ImportError: No module named packages` while installing textblob-aptagger with anaconda:
 In `/home/username/anaconda/lib/python2.7/site-packages/textblob_aptagger/taggers.py` change line 10:
 `from textblob.packages import nltk`
