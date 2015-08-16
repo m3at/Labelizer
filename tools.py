@@ -136,11 +136,20 @@ def show_colors(dic,justification=16):
     for idx,i in enumerate(dic):
         d[i]=_color[idx%len(_color)]
     jus=justification
-    for k in dic.keys():
-        print("\x1b[4%dm%s\x1b[0m"%(d[k],k.ljust(jus)) , end="")
-    print()
-    for k in dic.keys():
-        print("%s"%(k.ljust(jus)) , end="")
+
+    if type(dic) == dict:
+        for k in dic.keys():
+            print("\x1b[4%dm%s\x1b[0m"%(d[k],k.ljust(jus)) , end="")
+        print()
+        for k in dic.keys():
+            print("%s"%(k.ljust(jus)) , end="")
+
+    if type(dic) == list:
+        for k in dic:
+            print("\x1b[4%dm%s\x1b[0m"%(d[k],k.ljust(jus)) , end="")
+        print()
+        for k in dic:
+            print("%s"%(k.ljust(jus)) , end="")
 
 """
 def show_colors(justification=16):
