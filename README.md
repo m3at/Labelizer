@@ -8,7 +8,7 @@ This code build a LSTM Neural Network to classify scientific abstract into a set
 
 *TODO: reduce the amount of required packages and specify it per file*
 
-This code is written in Python and require a consequent amount of additional package, mostly included in distribution such as [Anaconda](http://continuum.io/downloads) or [Canopy](https://www.enthought.com/products/canopy/).
+This code is written in Python and require packages mostly included in distribution such as [Anaconda](http://continuum.io/downloads) or [Canopy](https://www.enthought.com/products/canopy/).
 Additionally, you need to install:
 `TextBlob` for fast lemmatization
 `Keras` for neural network implementation (based on theano)
