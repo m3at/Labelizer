@@ -35,7 +35,8 @@ to
 ## Usage
 
 Try the notebook 'Complete_workflow_V2' for a step by step process.
-Use the toy data included in the data folder for a quick experimentation>
+
+Use the toy data included in the [data](data) folder for a quick experimentation.
 
 *TODO*
 
