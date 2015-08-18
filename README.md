@@ -43,7 +43,7 @@ Try the notebook 'Complete_workflow_V2' for a step by step process.
 
 Use the toy data included in the [data](data) folder for a quick experimentation.
 
-*TODO*
+*TODO: step by step usage through a script*
 
 
 ## License
