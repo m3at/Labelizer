@@ -6,6 +6,7 @@ This code build a [LSTM Neural Network](https://en.wikipedia.org/wiki/Long_short
 
 (Example of Long Short Term Memory Neural Network usage: [link](http://karpathy.github.io/2015/05/21/rnn-effectiveness/))
 
+
 ## Requirements
 
 *TODO: simple one line package installation*
@@ -28,9 +29,13 @@ pip install seaborn
 With anaconda, if you encounter `ImportError: No module named packages` while installing textblob-aptagger:
 
 In `/home/username/anaconda/lib/python2.7/site-packages/textblob_aptagger/taggers.py` change line 10:
+
 `from textblob.packages import nltk`
+
 to
+
 `import nltk`
+
 
 ## Usage
 
@@ -39,6 +44,7 @@ Try the notebook 'Complete_workflow_V2' for a step by step process.
 Use the toy data included in the [data](data) folder for a quick experimentation.
 
 *TODO*
+
 
 ## License
 
