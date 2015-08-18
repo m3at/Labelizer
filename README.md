@@ -13,6 +13,8 @@ This code build a [LSTM Neural Network](https://en.wikipedia.org/wiki/Long_short
 
 This code is written in Python and require packages mostly included in distribution such as [Anaconda](http://continuum.io/downloads) or [Canopy](https://www.enthought.com/products/canopy/).
 
+Tryed on MacOS X 10.10 and Ubuntu 15.04, should work with Python 2.7 and Python 3+.
+
 Additionally, you need to install:
 `TextBlob` for fast lemmatization
 `Keras` for neural network implementation (based on theano)
