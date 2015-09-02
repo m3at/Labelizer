@@ -37,10 +37,10 @@ to
 
 ## Usage
 
-Try the notebook [Labelizer_part1](Labelizer_part1) for a step by step process of the data extraction, preprocessing and label analysis.  
-Try the notebook [Labelizer_part2](Labelizer_part2) for a LSTM training and evaluation.  
+Try the notebook [Labelizer_part1](Labelizer_part1.ipynb) for a step by step process of the data extraction, preprocessing and label analysis.  
+Try the notebook [Labelizer_part2](Labelizer_part2.ipynb) for a LSTM training and evaluation.  
 
-You can use the toy data included in the [data](data) folder for a quick experimentation, or use the downloading process included in the [Labelizer_part1](Labelizer_part1) notebook to obtain bigger dataset.
+You can use the toy data included in the [data](data) folder for a quick experimentation, or use the downloading process included in the [Labelizer_part1](Labelizer_part1.ipynb) notebook to obtain bigger dataset.
 
 
 
