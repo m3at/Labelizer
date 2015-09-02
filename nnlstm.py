@@ -35,6 +35,7 @@ import pickle
 import copy
 import time
 import random
+import os
 
 
 # ensure each sequence has the same length
@@ -42,8 +43,8 @@ def pad_sequence(X_train,X_test,y_train,y_test,maxlen=40):
     t0 = time.time()
     print("Pading sequences...")
     sys.stdout.flush()
-    X_train = sequence.pad_sequences(X_train, maxlen=40)
-    X_test = sequence.pad_sequences(X_test, maxlen=40)
+    X_train = sequence.pad_sequences(X_train, maxlen=maxlen)
+    X_test = sequence.pad_sequences(X_test, maxlen=maxlen)
     y_train = np.array(y_train)
     y_test = np.array(y_test)
     print('X_train shape:', X_train.shape)
@@ -63,6 +64,25 @@ def train_network(network,
     t0 = time.time()
     print("Training...")
     sys.stdout.flush()
+
+    if not os.path.exists(path_save):
+        os.makedirs(path_save)
+
+
+    def _local_evaluate(n_plain_t,n_plain_p):
+        c = 0
+        for idx,i in enumerate(n_plain_p):
+            isit=False
+            for idx2,x in enumerate(i):
+                if x==1 and x==n_plain_t[idx][idx2]:
+                    isit=True
+            if isit:
+                c+=1
+        acc = float(c)/len(n_plain_p)
+        rps = metrics.label_ranking_average_precision_score(n_plain_t,n_plain_p)
+        print("\x1b[33mAccuracy: %.02f%%\x1b[0m [%d/%d], \x1b[33mRPS: %.03f\x1b[0m"%(acc*100,c,len(n_plain_p),
+                                        rps),end="")
+        return acc,rps
 
     class LossHistory(Callback):
         def on_train_begin(self, logs={}):
@@ -84,7 +104,7 @@ def train_network(network,
             self.metric.append(self.val_accuracy[-1]-(self.val_losses[-1]/10.))
             if len(self.val_accuracy)<2:
                 #network.save_weights("weights/weight_%d.hdf5"%self.pos,overwrite=True)
-                print("Saving at first epoch")
+                print("\x1b[35mSaving at first epoch\x1b[0m")
             else:
                 tmp = True
                 for i in self.metric[:-1]:
@@ -93,8 +113,9 @@ def train_network(network,
                         break
                 if tmp:
                     network.save_weights("%s/best.hdf5"%path_save,overwrite=True)
-                    print("Model improved, saving weight")
-            network.save_weights("%s/weight_%d.hdf5"%(path_save,self.pos),overwrite=True)
+                    print("\x1b[35mModel improved, saving weight\x1b[0m")
+            network.save_weights("%s/epoch_%d.hdf5"%(path_save,self.pos),overwrite=True)
+
             self.pos=self.pos+1
 
             cpt = 0
@@ -272,7 +293,6 @@ class LSTMPredictor:
 
     def predict_labeled(self,lab):
         cc=0
-        d=self.colors
         for i in lab:
             cpt=0.0
             for x in lab:
@@ -286,6 +306,18 @@ class LSTMPredictor:
                 confidence,predd = self.get_prediction(j,i[0])
                 print('_'*80)
                 print()
+
+    def predict_on_csv(self,lab):
+        cc=0.0
+        cpt=len(lab)
+        for i in lab:
+            tmp = "##LEN%02d ##POS%02d ##IDX%02d %s"%(cpt,cc,int((cc/cpt)*100),i[1])
+            cc+=1
+            print("%s\n"%(tmp[24:]))
+            #print("%s\n"%(j[24:]))
+            confidence,predd = self.get_prediction(tmp,i[0][0])
+            print('_'*80)
+            print()
 
 # local
 def get_oth_lab(subset,tokenizer):
