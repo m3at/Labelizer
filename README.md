@@ -1,10 +1,7 @@
-*Work in progress*  
-
----
 # Labelizer  
 
 
-This code build a [LSTM Neural Network](https://en.wikipedia.org/wiki/Long_short_term_memory) to classify sentences in a scientific abstract into a set of labels.
+This code build a [LSTM Neural Network](https://en.wikipedia.org/wiki/Long_short_term_memory) to classify sentences from a scientific abstract into a set of labels.
 
 
 
@@ -16,25 +13,16 @@ This code build a [LSTM Neural Network](https://en.wikipedia.org/wiki/Long_short
 This code is written in Python and require packages mostly included in distribution such as [Anaconda](http://continuum.io/downloads) or [Canopy](https://www.enthought.com/products/canopy/).
 
 Additionally, you need to install:  
-`TextBlob` for lemmatization (_getting rid of that soon!_)  
 `Spacy` for fast lemmatization  
 `Keras` for neural network implementation (based on theano)  
 `Seaborn` for visualization.  
 
 You can get these packages through pip (prepend sudo if required):
 ```bash
-pip install textblob
-pip install textblob-aptagger
 pip install spacy
 pip install keras
 pip install seaborn
 ```
-
-With anaconda, if you encounter `ImportError: No module named packages` while installing textblob-aptagger:  
-In `/home/username/anaconda/lib/python2.7/site-packages/textblob_aptagger/taggers.py` change line 10:  
-`from textblob.packages import nltk`  
-to  
-`import nltk`
 
 
 
