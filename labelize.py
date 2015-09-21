@@ -17,13 +17,14 @@ import re
 import argparse
 from spacy.en import English
 import numpy as np
+import json
 
 # !!!
 import warnings
 warnings.filterwarnings("ignore")
 
 
-s_epilog=""
+s_epilog="Classify sentences of the input into a set of labels.\n Output as json."
 
 parser = argparse.ArgumentParser(
 	prog='labelizer.py',
@@ -39,8 +40,16 @@ args = parser.parse_args()
 
 #print(args.file)
 
-#if args.quiet:
-#    print("quiet")
+class NullWriter(object):
+	def write(self, arg):
+		pass
+	def flush(self):
+		pass
+
+if args.quiet:
+	nullwrite = NullWriter()
+	oldstdout = sys.stdout
+	sys.stdout = nullwrite # disable output
 
 
 
@@ -153,7 +162,7 @@ class LSTMPredictor:
             cc+=1
             print("\x1b[1;35m%d|\x1b[0m %s\n"%(idx+1,i))
             predd = self.silence_get_prediction(tmp)
-            out.append(predd)
+            out.append([predd,i])
             print('_'*80)
             print()
         return out
@@ -176,22 +185,34 @@ sys.stdout.flush()
 
 
 # In[146]:
+final_json = {}
 
 for a in args.file:
-    f = open(a,'rb')
-    txt = f.read()
-    find = r'[\t\r\n\f]+'
-    txt = re.sub(find,' ',txt)
+	f_name = a.split('/')[-1]#.split('.')[0]
+	f = open(a,'rb')
+	txt = f.read()
+	find = r'[\t\r\n\f]+'
+	txt = re.sub(find,' ',txt)
 
-    f.close()
+	f.close()
 
-    out = pred.silence_predict(txt)
+	out = pred.silence_predict(txt)
 
-    # In[132]:
+	# In[132]:
 
-    for idx,i in enumerate(out):
-        print("\x1b[1;35m%d|\x1b[0m %s"%(idx+1,i))
-    print()
+	for idx,i in enumerate(out):
+	    print("\x1b[1;35m%d|\x1b[0m %s"%(idx+1,i[0]))
+	print()
+
+	data_json = {}
+	for idx,i in enumerate(out):
+	    data_json[i[0]]=i[1]
+	final_json[f_name]=data_json
+
+
+f = open("labelized_text.json", 'w+')
+json.dump(final_json, f, indent=4)
+
 
 
 
